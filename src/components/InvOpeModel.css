@@ -1,0 +1,56 @@
+.function {
+  display: flex;
+  flex-direction: row;
+}
+.function>*{
+  margin: 0.25rem;
+}
+h3{
+  display: flex;
+  align-items: center;
+}
+.input,
+.select {
+  width: 3rem;
+  border: 1px solid;
+  font-size: 1.5rem;
+  outline: 0;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 10px;
+}
+
+.restriccion {
+  display: flex;
+  flex-direction: row;
+  
+}
+.restriccion-model{
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+}
+.restriccion-model>*{
+  margin: 0.25rem;
+}
+.restriccion-model:last-child{
+  justify-content: center;
+}
+.restriccion-model:last-child>*{
+   margin: 00.25rem;
+  
+}
+.input{
+  height:2rem;
+
+}
+.model-block{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.rest{
+  margin: 1rem;
+  
+}
