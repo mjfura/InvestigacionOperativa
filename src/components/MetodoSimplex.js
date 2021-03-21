@@ -1,6 +1,7 @@
 import "./MetodoSimplex.css";
 import {useState,useEffect} from "react";
 export const MetodoSimplex=(props)=>{
+    const[respuesta,setRespuesta]=useState(null);
     const[coef,setCoef]=useState({});
     const[aceptar,setAceptar]=useState(false);
     const[cuadros,setCuadros]=useState(null);
@@ -155,7 +156,7 @@ export const MetodoSimplex=(props)=>{
             if(i<props.numVar){
                 
 
-                coefCopy[`c${i+1}`]=-1*parseFloat(coefCopy[`c${i+1}`]);
+                (props.caso==="Min")?coefCopy[`c${i+1}`]=parseFloat(coefCopy[`c${i+1}`]):coefCopy[`c${i+1}`]=-1*parseFloat(coefCopy[`c${i+1}`]);
             }else{
                 coefCopy[`c${i+1}`]=0;
             }
@@ -431,6 +432,26 @@ export const MetodoSimplex=(props)=>{
         });
         return coef;
     }
+    const mostrarResultado=(coef,isM)=>{
+        let h3;
+        console.log(isM,"ESTADO M");
+        console.log("NUEVA FUNCION IMPLEMENTADA");
+        if(isM){
+            for(let i=0;i<props.numRest;i++){
+                console.log("DENTRO DE LAS VB")
+                h3=<>{h3}<h3>{coef[`vb${i+1}`]}={coef[`b${i+1}`]}</h3></>
+            }
+        }
+        else{
+            if(props.caso==="Min"){
+                console.log("DENTRO DE LAS X1=0")
+                for(let j=0;j<props.numVar;j++){
+                    h3=<>{h3}<h3>{`x${j+1}`}=0</h3></>
+                }
+            }
+        }
+        return h3;
+    }
         
         let coefActual=handleNegative(),
          response,
@@ -450,23 +471,19 @@ export const MetodoSimplex=(props)=>{
         let res =preGenerateCoefGain(coefActual);
         coefActual=generatePadron(res.coefCopy);
             coefActual=metodoSimplex(coefActual,props.numRest,res.varNb);
-        }
+        };
+        let h3=mostrarResultado(coefActual,resp.isFase);
+        setRespuesta(h3);
         setCoef(coefActual);
         setAceptar(true);
     },[]);
-    const mostrarResultado=()=>{
-        let h3;
-            for(let i=0;i<props.numRest;i++){
-                h3=<>{h3}<h3>{coef[`vb${i+1}`]}={coef[`b${i+1}`]}</h3></>
-            }
-            return h3;
-    }
+    
     
     return(
     <>
         {aceptar && cuadros }
         <h3>La solución es: Z={(props.caso==="Min")?-1*coef.b0:coef.b0} para</h3> 
-        {aceptar && mostrarResultado()}
+        {aceptar && respuesta}
     </>
     )
 }
