@@ -434,20 +434,24 @@ export const MetodoSimplex=(props)=>{
     }
     const mostrarResultado=(coef,isM)=>{
         let h3;
-        console.log(isM,"ESTADO M");
-        console.log("NUEVA FUNCION IMPLEMENTADA");
         if(isM){
             for(let i=0;i<props.numRest;i++){
-                console.log("DENTRO DE LAS VB")
+                
                 h3=<>{h3}<h3>{coef[`vb${i+1}`]}={coef[`b${i+1}`]}</h3></>
             }
         }
         else{
             if(props.caso==="Min"){
-                console.log("DENTRO DE LAS X1=0")
+                
                 for(let j=0;j<props.numVar;j++){
                     h3=<>{h3}<h3>{`x${j+1}`}=0</h3></>
                 }
+            }
+            else{
+                 for(let i=0;i<props.numRest;i++){
+               
+                h3=<>{h3}<h3>{coef[`vb${i+1}`]}={coef[`b${i+1}`]}</h3></>
+            }
             }
         }
         return h3;
